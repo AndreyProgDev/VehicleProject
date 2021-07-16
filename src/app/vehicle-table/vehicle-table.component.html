@@ -1,0 +1,54 @@
+<div fxLayout="row">
+    <div fxFlex="50">
+        <mat-form-field fxFlex="50" fxFlexOffset="4" appearance="standard">
+          <div class="search-icon">
+            <mat-icon matPrefix></mat-icon>
+          </div>
+          <span matPrefix>
+            <mat-icon matPrefix>search</mat-icon>
+          </span>
+            <mat-label>Пошук</mat-label>
+            <input matInput (keyup)="applyFilter($event)" #input>
+        </mat-form-field>
+    </div>
+    <div fxFlex="50"></div>
+    <mat-paginator class="paginator" fxFlex="none" [length]="20" [pageSize]="25" [pageSizeOptions]="[10, 25, 100]">
+    </mat-paginator>
+</div>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table-veh" matSort>
+  <ng-container matColumnDef="Vehicle.name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="Vehicle.name"> Транспортний засіб </th>
+    <td mat-cell *matCellDef="let element"> {{element.Vehicle.name}} </td>
+  </ng-container>
+  <ng-container matColumnDef="Vehicle.Organization.name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="Vehicle.Organization.name"> Організація </th>
+    <td mat-cell *matCellDef="let element"> {{element.Vehicle.Organization.name}} </td>
+  </ng-container>
+  <ng-container matColumnDef="Vehicle.Department.name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="Vehicle.Department.name"> Департамент </th>
+    <td mat-cell *matCellDef="let element"> {{element.Vehicle.Department?.name}} </td>
+  </ng-container>
+  <ng-container matColumnDef="Vehicle.Contragent.name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="Vehicle.Contragent.name"> Контрагент </th>
+    <td mat-cell *matCellDef="let element"> {{element.Vehicle.Contragent?.name}} </td>
+  </ng-container>
+  <ng-container matColumnDef="code1c">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Код </th>
+    <td mat-cell *matCellDef="let element"> {{element.code1c}} </td>
+  </ng-container>
+  <ng-container matColumnDef="Aggregate.name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="Aggregate.name"> Причіп </th>
+    <td mat-cell *matCellDef="let element"> {{element.Aggregate?.name}} </td>
+  </ng-container>
+  <ng-container matColumnDef="Drivers">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="Drivers"> Водії </th>
+    <td mat-cell *matCellDef="let element">
+      <div *ngFor="let elem of element.Drivers;">
+       {{elem?.name}}
+      </div>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
